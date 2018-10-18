@@ -1,7 +1,7 @@
 #ifndef PIPE_H
 #define PIPE_H
 
-#include <SDL_rect.h>
+#include <SDL2/SDL_rect.h>
 
 class SDL_Texture;
 class SDL_Window;

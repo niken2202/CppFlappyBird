@@ -2,8 +2,8 @@
 #define WORLD_H
 
 #include <vector>
-#include <SDL_rect.h>
-
+#include <SDL2/SDL_rect.h>
+#include <SDL2/SDL_ttf.h>
 class SDL_Texture;
 class SDL_Window;
 class SDL_Renderer;
@@ -25,7 +25,7 @@ public:
 
     Pipe*                       GetCurrentPipe();
     std::vector<Pipe*>*         GetPipes();
-
+    void                        RenderScore(SDL_Window* window,TTF_Font* Sans, SDL_Renderer* renderer,int score);
 private:
     SDL_Texture*                m_Background;
     SDL_Texture*                m_Floor;

@@ -5,8 +5,9 @@
 #include <stdlib.h>
 #include <ctime>
 
-#include <SDL.h>
-#include <SDL_Image.h>
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
+#include <SDL2/SDL_ttf.h>
 
 World::World(SDL_Window* window, SDL_Renderer* renderer)
     :   m_Background(NULL),
@@ -14,7 +15,7 @@ World::World(SDL_Window* window, SDL_Renderer* renderer)
 {
     SDL_Surface* surface = NULL;
 
-    surface = IMG_Load("img\\background.png");
+    surface = IMG_Load("img//background.png");
 
     if (!surface)
     {
@@ -35,7 +36,7 @@ World::World(SDL_Window* window, SDL_Renderer* renderer)
     SDL_FreeSurface(surface);
     surface = NULL;
 
-    surface = IMG_Load("img\\floor.png");
+    surface = IMG_Load("img//floor.png");
 
     if (!surface)
     {
@@ -64,6 +65,23 @@ World::World(SDL_Window* window, SDL_Renderer* renderer)
     pipe->MoveTo(800);
     m_Pipes.push_back(pipe);
 }
+void  World::RenderScore(SDL_Window* window,TTF_Font* Sans,SDL_Renderer* renderer,int score){
+
+    SDL_Color White = {255, 255, 255};  // this is the color in rgb format, maxing out all would give you the color white, and it will be your text's color
+    std::string s = std::to_string(score);
+    char const *pchar = s.c_str();
+    SDL_Surface* surfaceMessage = TTF_RenderText_Solid(Sans, pchar, White); // as TTF_RenderText_Solid could only be used on SDL_Surface then you have to create the surface first
+    SDL_Texture* Message = SDL_CreateTextureFromSurface(renderer, surfaceMessage); //now you can convert it into a texture
+    SDL_Rect Message_rect; //create a rect
+
+    Message_rect.x = SDL_GetWindowSurface(window)->w/2;  //controls the rect's x coordinate
+    Message_rect.y = SDL_GetWindowSurface(window)->w/9; // controls the rect's y coordinte
+    Message_rect.w = 30; // controls the width of the rect
+    Message_rect.h = 50; // controls the height of the rect
+   SDL_RenderCopy(renderer, Message, NULL, &Message_rect);
+
+
+}
 
 void World::MoveLeft()
 {
@@ -81,8 +99,7 @@ void World::RenderPipes(SDL_Window* window, SDL_Renderer* renderer)
     rect.y = 0;
     rect.h = 20;
     rect.w = m_PipeDistance;
-
-    SDL_Rect lastPipe = m_Pipes.back()->GetTopRect();
+     SDL_Rect lastPipe = m_Pipes.back()->GetTopRect();
 
     if (SDL_HasIntersection(&rect, &lastPipe) == SDL_TRUE)
     {

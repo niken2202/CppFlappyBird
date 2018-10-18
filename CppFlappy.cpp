@@ -4,8 +4,9 @@
 #include "Pipe.h"
 
 #include <iostream>
-#include <SDL.h>
-#include <SDL_Image.h>
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
+#include <SDL2/SDL_ttf.h>
 
 CppFlappy::CppFlappy()
     :   m_Init(false),
@@ -60,7 +61,7 @@ void CppFlappy::Init()
 
     SDL_Surface* surface = NULL;
 
-    surface = IMG_Load("img\\startscreen.png");
+    surface = IMG_Load("img//startscreen.png");
 
     if (!surface)
     {
@@ -108,6 +109,8 @@ int CppFlappy::Run()
     if (!m_Init)
     {
         Init();
+        TTF_Init();
+        
 
         if (!m_Init)
         {
@@ -125,6 +128,7 @@ int CppFlappy::Run()
 
     unsigned int lastTime = 0, currentTime;
     float dt;
+    TTF_Font* Sans = TTF_OpenFont("font//font_score.ttf",24);
 
     float time = 0.0f;
     float mapMoveTime = 0.0f;
@@ -144,6 +148,7 @@ int CppFlappy::Run()
         {
             if (m_Event.type == SDL_KEYDOWN)
             {
+
                 switch (m_Event.key.keysym.sym)
                 {
                 case SDLK_SPACE:
@@ -193,6 +198,7 @@ int CppFlappy::Run()
         m_World->RenderPipes(m_Window, m_Renderer);
 
         m_Bird->Render(m_Renderer);
+        m_World->RenderScore(m_Window,Sans,m_Renderer,m_Bird->m_CurrentScore);
 
         SDL_RenderPresent(m_Renderer);
 
@@ -214,10 +220,12 @@ int CppFlappy::Run()
                 m_World->RenderPipes(m_Window, m_Renderer);
 
                 m_Bird->Render(m_Renderer);
-
+                m_World->RenderScore(m_Window,Sans,m_Renderer,m_Bird->m_CurrentScore);
                 SDL_RenderPresent(m_Renderer);
             }
         }
+
+        m_World->RenderScore(m_Window,Sans,m_Renderer,m_Bird->m_CurrentScore);
     }
 
     return m_Bird->m_CurrentScore;

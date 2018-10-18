@@ -1,14 +1,13 @@
 #ifndef BIRD_H
 #define BIRD_H
 
-#include <SDL_rect.h>
+#include <SDL2/SDL_rect.h>
 #include <vector>
 
 class Pipe;
 class SDL_Texture;
 class SDL_Window;
 class SDL_Renderer;
-
 class Bird
 {
 public:
@@ -28,6 +27,8 @@ public:
     int                         m_CurrentScore;
 
     bool                        IsHit(std::vector<Pipe*>* pipes);
+
+
 
 private:
     SDL_Texture*                m_Texture;

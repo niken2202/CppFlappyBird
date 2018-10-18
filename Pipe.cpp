@@ -1,8 +1,8 @@
 #include "Pipe.h"
 
 #include <iostream>
-#include <SDL.h>
-#include <SDL_Image.h>
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
 
 Pipe::Pipe(SDL_Window* window, SDL_Renderer* renderer, int type)
     :   m_Type(type),
@@ -11,7 +11,7 @@ Pipe::Pipe(SDL_Window* window, SDL_Renderer* renderer, int type)
 {
     SDL_Surface* surface = NULL;
 
-    surface = IMG_Load("img\\pipe_top.png");
+    surface = IMG_Load("img//pipe_top.png");
 
     if (!surface)
     {
@@ -30,7 +30,7 @@ Pipe::Pipe(SDL_Window* window, SDL_Renderer* renderer, int type)
     SDL_FreeSurface(surface);
     surface = NULL;
 
-    surface = IMG_Load("img\\pipe_bot.png");
+    surface = IMG_Load("img//pipe_bot.png");
 
     if (!surface)
     {

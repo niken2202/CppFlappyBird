@@ -2,8 +2,9 @@
 #include "Pipe.h"
 
 #include <iostream>
-#include <SDL.h>
-#include <SDL_Image.h>
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
+#include <SDL2/SDL_ttf.h>
 
 Bird::Bird()
     :   m_CurrentScore(0),
@@ -39,6 +40,7 @@ bool Bird::IsHit(std::vector<Pipe*>* pipes)
     {
         ++m_CurrentScore;
         std::cout << "Score: " << m_CurrentScore << std::endl;
+
     }
 
     return false;
@@ -60,7 +62,7 @@ void Bird::Up()
 
 void Bird::Spawn(SDL_Window* window, SDL_Renderer* renderer)
 {
-    SDL_Surface* surface = IMG_Load("img\\bird.png");
+    SDL_Surface* surface = IMG_Load("img//bird.png");
 
     if (!surface)
     {

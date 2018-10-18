@@ -4,7 +4,7 @@
 #define SCREEN_WIDTH 800
 #define SCREEN_HEIGHT 600
 
-#include <SDL_events.h>
+#include <SDL2/SDL_events.h>
 
 class SDL_Texture;
 class SDL_Window;
@@ -27,7 +27,7 @@ public:
 private:
     void                        Init();
     void                        DrawStartScreen();
-
+  
     bool                        m_Init;
 
     SDL_Window*                 m_Window;
